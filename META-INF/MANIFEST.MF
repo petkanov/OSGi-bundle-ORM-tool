@@ -1,0 +1,25 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Persistence
+Meta-Persistence: META-INF/hibernate.cfg.xml
+Bundle-SymbolicName: com.riscogroup.nextgen.persistence
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: com.riscogroup.nextgen.persistence.activator.PersistenceActivator
+Bundle-Vendor: RISCO Group
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Import-Package: com.riscogroup.nextgen.home.api.device.type,
+ com.riscogroup.nextgen.home.api.device.type.intrusion,
+ com.riscogroup.nextgen.home.api.function.type,
+ com.riscogroup.nextgen.home.api.generic,
+ com.riscogroup.nextgen.home.api.monitor,
+ com.riscogroup.nextgen.home.api.rule.data,
+ com.riscogroup.nextgen.home.api.services,
+ org.osgi.framework,
+ org.osgi.service.event,
+ org.slf4j
+Bundle-ClassPath: .,
+ lib/commons-dbcp2-2.1.1.jar,
+ lib/commons-logging-1.2.jar,
+ lib/commons-pool2-2.4.2.jar,
+ lib/postgresql-9.4-1206-jdbc4.jar
+ 
