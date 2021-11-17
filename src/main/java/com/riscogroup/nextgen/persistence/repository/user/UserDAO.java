@@ -130,38 +130,38 @@ public class UserDAO extends DataAccessObject<User> {
 	}
 
 	protected void initializeObjectWithDatabaseData(User user) throws SQLException {
-//		final Connection connection = getTransactionManager().getConnection();
-//		
-//		final String query = "SELECT * FROM home_automation._user WHERE id=?";
-//		try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-//			preparedStatement.setInt(1, user.getUID());
-//			try (ResultSet resultSet = preparedStatement.executeQuery();) {
-//				if (resultSet.next()) {
-//					user.setUserId(resultSet.getInt("id"));
-//					user.setUsername(resultSet.getString("name"));
-//					user.setUserLabel(resultSet.getString("label"));
-//					user.setPasswordHash(resultSet.getString("password_hash"));
-//					user.setAuthenticationHash(resultSet.getString("authentication_hash"));
-//					user.setDuressAuthenticationHash(resultSet.getString("duress_authentication_hash"));
-//					user.setRole(resultSet.getInt("role"));
-//					user.setActive(resultSet.getBoolean("is_active"));
-//					user.setUserExpirationTime(resultSet.getLong("user_expiration_time"));
-//					user.setUserAudioDescription(resultSet.getString("user_audio_description"));
-//					user.setUserLanguage(resultSet.getString("user_language"));
-//					user.setDuressAlarm(resultSet.getBoolean("is_duress_alaram"));
-//					user.setDuressPasswordHash(resultSet.getString("duress_password_hash"));
-//				} else {
-//					logger.error("User {} does not exist", user.getUID());
-//					throw new SQLException();
-//				}
-//			}
-//		}
-//		user.setGroups(getUserAggregationsFromPivotTable("user_to_group", "group_id", user.getUID()));
-//		
-//		final Map<Integer, Boolean> nextOperationDeactivationMap = getNextOperationDeactivationMap(user.getUID());
-//		for(Integer groupUID : nextOperationDeactivationMap.keySet()) {
-//			user.setNextOperationDeactivation(groupUID, nextOperationDeactivationMap.get(groupUID));
-//		}
+		final Connection connection = getTransactionManager().getConnection();
+
+		final String query = "SELECT * FROM home_automation._user WHERE id=?";
+		try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+			preparedStatement.setInt(1, user.getUID());
+			try (ResultSet resultSet = preparedStatement.executeQuery();) {
+				if (resultSet.next()) {
+					user.setUserId(resultSet.getInt("id"));
+					user.setUsername(resultSet.getString("name"));
+					user.setUserLabel(resultSet.getString("label"));
+					user.setPasswordHash(resultSet.getString("password_hash"));
+					user.setAuthenticationHash(resultSet.getString("authentication_hash"));
+					user.setDuressAuthenticationHash(resultSet.getString("duress_authentication_hash"));
+					user.setRole(resultSet.getInt("role"));
+					user.setActive(resultSet.getBoolean("is_active"));
+					user.setUserExpirationTime(resultSet.getLong("user_expiration_time"));
+					user.setUserAudioDescription(resultSet.getString("user_audio_description"));
+					user.setUserLanguage(resultSet.getString("user_language"));
+					user.setDuressAlarm(resultSet.getBoolean("is_duress_alaram"));
+					user.setDuressPasswordHash(resultSet.getString("duress_password_hash"));
+				} else {
+					logger.error("User {} does not exist", user.getUID());
+					throw new SQLException();
+				}
+			}
+		}
+		user.setGroups(getUserAggregationsFromPivotTable("user_to_group", "group_id", user.getUID()));
+
+		final Map<Integer, Boolean> nextOperationDeactivationMap = getNextOperationDeactivationMap(user.getUID());
+		for(Integer groupUID : nextOperationDeactivationMap.keySet()) {
+			user.setNextOperationDeactivation(groupUID, nextOperationDeactivationMap.get(groupUID));
+		}
 	}
 
 	@Override
